@@ -1,38 +1,43 @@
-import React from 'react';
+import React, { useState } from 'react';
+import Button from '../Button';
+import * as customerApi from '../api/fetchData';
+
 
 function Main() {
+    const [customerDetails, setCustomerDetails] = useState([]);
+    function onButtonSubmit(event) {
+        event.preventDefault();
+        console.log("yes");
+        const data = customerApi.getCustomerDetails();
+        console.log("data", data.mockData);
+        setCustomerDetails(data.mockData);
+    }
+
     return (
         <>
-            <table class="table">
+            <Button onSubmit={onButtonSubmit} />
+            {customerDetails.length > 0 && <table class="table">
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">First</th>
-                        <th scope="col">Last</th>
-                        <th scope="col">Handle</th>
+                        <th scope="col">Customer Id</th>
+                        <th scope="col">Customer Name</th>
+                        <th scope="col">Customer Pan</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
-                    <tr>
-                        <th scope="row">3</th>
-                        <td>Larry</td>
-                        <td>the Bird</td>
-                        <td>@twitter</td>
-                    </tr>
+                    {customerDetails.map((customer, index) => {
+                        return (<tr>
+                            <th scope="row">{index}</th>
+                            <td>{customer.customerId}</td>
+                            <td>{customer.customerName}</td>
+                            <td>{customer.customerPan}</td>
+                        </tr>)
+                    })}
+
+
                 </tbody>
-            </table>
+            </table>}
 
 
         </>

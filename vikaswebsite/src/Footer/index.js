@@ -9,10 +9,6 @@ function Footer() {
     <a href="https://www.adobe.com/"> Adobe.com</a>
                 </div>
             </footer>
-
-
-
-
         </>
     )
 }
